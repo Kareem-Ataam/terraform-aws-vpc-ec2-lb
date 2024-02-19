@@ -464,7 +464,7 @@ variable "instance_names" {
 
 Finally, if you want to run the project you will need to write the **_`terraform.tfvars`_** file which contains the values needed for the used variables or you can pass them any way you like.
 
-I just want to give a note on a variable that you will need to pass for and it’s **_`user_data_file_paths`_** which is a list containing the paths of the scripts that will be run on the instances in order, in my case I am running three instances the first is in a public subnet and i want it to run Nginx docker container so I provided the path of the following script (nginx.sh):
+I just want to give a note on a variable that you will need to pass for and it’s **_`user_data_file_paths`_** which is a list containing the paths of the scripts that will be run on the instances in order, in my case I am running three instances the first is in a public subnet and i want it to run Nginx docker container so I provided the path of the following script (it's called nginx.sh):
 
 ```bash
 #!/bin/bash
@@ -476,7 +476,7 @@ docker run --name nginx-lb -p 8080:80 nginx
 
 The other two subnets run in private subnets and they are the instances which run Apache web server that hosts the site.
 
-I passed this script path **_`web_server.sh`_**:
+I passed this script path (it's called web_server.sh):
 
 ```bash
 #!/bin/bash
@@ -492,11 +492,11 @@ sudo systemctl restart httpd
 
 All the scripts is in the repo in the directory **_`scripts`_** .
 
-After running the project as I shown in a section above you will have all the resources created and available for use—**_The image below just show the instances_**:
+After running the project as I have shown in a section above you will have all the resources created and available for use—**_The image below just show the instances_**:
 
 ![ec2.PNG](./images/ec2.png)
 
-Now we need to login to the instance called Nginx to configure Nginx to work as load balancer and balance the load over the two instances in the private subnets:
+Now we need to login to the instance called Nginx to configure Nginx to work as a load balancer and balance the load over the two instances in the private subnets:
 
 - SSH into the instance.
 - Run the command:
